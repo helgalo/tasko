@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "824187677279",
+    "project_id": "tasko-e6624",
+    "storage_bucket": "tasko-e6624.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:824187677279:android:5901ca51520212a0d709ea",
+        "android_client_info": {
+          "package_name": "com.galodev.tasko.tasko"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfJAk1Dvdh5SxzCOZF6nehROds-2h8id8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

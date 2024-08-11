@@ -149,7 +149,9 @@ class _BasicInputTextFieldWidgetState extends State<BasicInputTextFieldWidget> {
                         textAlign: widget.textAlign,
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.symmetric(
-                              vertical: 0, horizontal: 0),
+                            vertical: 0,
+                            horizontal: 0,
+                          ),
                           isDense: false,
                           border: InputBorder.none,
                           hintText: widget.hintText,

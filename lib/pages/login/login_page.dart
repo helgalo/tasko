@@ -5,14 +5,20 @@ import 'package:tasko/pages/login/login_controller.dart';
 import 'package:tasko/widgets/basic_button_widget.dart';
 import 'package:tasko/widgets/basic_checkbox_button_widget.dart';
 import 'package:tasko/widgets/basic_input_textfield_widget.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final LoginController provider = LoginController();
+  State<LoginPage> createState() => _LoginPageState();
+}
 
+class _LoginPageState extends State<LoginPage> {
+  final LoginController provider = LoginController();
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CoreColors.coreBackground,
       body: LayoutBuilder(
@@ -65,23 +71,24 @@ class LoginPage extends StatelessWidget {
                       //Body
                       Column(
                         children: [
-                          const BasicInputTextFieldWidget(
+                          BasicInputTextFieldWidget(
                             hintText: "Your email",
                             label: "Email",
                             keyboardType: TextInputType.emailAddress,
-                            // controller: provider.emailController,
+                            controller: provider.emailController,
                             // onChanged: (_) => provider.validateEmail(),
                           ),
                           const SizedBox(height: 24),
-                          const BasicInputTextFieldWidget(
-                            keyboardType: TextInputType.visiblePassword,
-                            hintText: "Your password",
-                            label: "Password",
-                            // isObscure: provider.isObscurePassword,
-                            // controller: provider.passwordController,
-                            // onTapPasswordVisibleButton: () =>
-                            //     provider.changeIsObscurePassword(
-                            //         !provider.isObscurePassword),
+                          Observer(
+                            builder: (_) => BasicInputTextFieldWidget(
+                              keyboardType: TextInputType.visiblePassword,
+                              hintText: "Your password",
+                              label: "Password",
+                              isObscure: provider.passwordVisible,
+                              controller: provider.passwordController,
+                              onTapPasswordVisibleButton: () =>
+                                  provider.togglePasswordVisibility(),
+                            ),
                           ),
                           const SizedBox(height: 16),
                           Row(
@@ -114,15 +121,16 @@ class LoginPage extends StatelessWidget {
                       const SizedBox(height: 40),
                     ],
                   ),
-                  BasicButtonWidget(
-                    // onPressed: provider.login,
-                    onPressed: () {},
-                    title: "Login",
-                    isLoading: false,
-                    // type: provider.isEmailValid && provider.isValidPassword
-                    //     ? ButtonTypes.primary
-                    //     : ButtonTypes.secondary,
-                  )
+                  Observer(
+                    builder: (_) => BasicButtonWidget(
+                      onPressed: provider.login,
+                      title: "Login",
+                      isLoading: provider.isLoading,
+                      // type: provider.isEmailValid && provider.isValidPassword
+                      //     ? ButtonTypes.primary
+                      //     : ButtonTypes.secondary,
+                    ),
+                  ),
                 ],
               ),
             ),
