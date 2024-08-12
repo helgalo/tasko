@@ -27,6 +27,7 @@ class Task {
   }
 
   Task copyWith({
+    String? id,
     String? title,
     String? description,
   }) {

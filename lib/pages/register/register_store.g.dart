@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'register_controller.dart';
+part of 'register_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,9 +8,9 @@ part of 'register_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$RegisterController on _RegisterController, Store {
+mixin _$RegisterStore on _RegisterStore, Store {
   late final _$isLoadingAtom =
-      Atom(name: '_RegisterController.isLoading', context: context);
+      Atom(name: '_RegisterStore.isLoading', context: context);
 
   @override
   bool get isLoading {
@@ -26,7 +26,7 @@ mixin _$RegisterController on _RegisterController, Store {
   }
 
   late final _$passwordVisibleAtom =
-      Atom(name: '_RegisterController.passwordVisible', context: context);
+      Atom(name: '_RegisterStore.passwordVisible', context: context);
 
   @override
   bool get passwordVisible {
@@ -41,8 +41,7 @@ mixin _$RegisterController on _RegisterController, Store {
     });
   }
 
-  late final _$userAtom =
-      Atom(name: '_RegisterController.user', context: context);
+  late final _$userAtom = Atom(name: '_RegisterStore.user', context: context);
 
   @override
   User? get user {
@@ -58,24 +57,24 @@ mixin _$RegisterController on _RegisterController, Store {
   }
 
   late final _$loginAsyncAction =
-      AsyncAction('_RegisterController.login', context: context);
+      AsyncAction('_RegisterStore.login', context: context);
 
   @override
   Future<void> login() {
     return _$loginAsyncAction.run(() => super.login());
   }
 
-  late final _$_RegisterControllerActionController =
-      ActionController(name: '_RegisterController', context: context);
+  late final _$_RegisterStoreActionController =
+      ActionController(name: '_RegisterStore', context: context);
 
   @override
   void goToLogin() {
-    final _$actionInfo = _$_RegisterControllerActionController.startAction(
-        name: '_RegisterController.goToLogin');
+    final _$actionInfo = _$_RegisterStoreActionController.startAction(
+        name: '_RegisterStore.goToLogin');
     try {
       return super.goToLogin();
     } finally {
-      _$_RegisterControllerActionController.endAction(_$actionInfo);
+      _$_RegisterStoreActionController.endAction(_$actionInfo);
     }
   }
 

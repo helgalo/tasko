@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:tasko/core/theme/core_colors.dart';
-import 'package:tasko/pages/task/details/task_details_controller.dart';
+import 'package:tasko/pages/task/details/task_details_store.dart';
+import 'package:tasko/widgets/main_button_widget.dart';
+import 'package:tasko/widgets/main_input_textfield_widget.dart';
 
 class TaskDetailsPage extends StatelessWidget {
   const TaskDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    TaskDetailsController provider = TaskDetailsController();
+    TaskDetailsStore store = TaskDetailsStore();
 
     return Scaffold(
       backgroundColor: CoreColors.coreBackground,
       appBar: AppBar(
         title: Observer(
-          builder: (_) => provider.isLoading
+          builder: (_) => store.isLoading
               ? const CircularProgressIndicator()
               : Text(
-                  'Task: ${provider.actualTask?.title}',
+                  'Task: ${store.actualTask?.title}',
                   style: const TextStyle(color: CoreColors.coreWhite),
                 ),
         ),
@@ -25,37 +27,65 @@ class TaskDetailsPage extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           color: CoreColors.coreWhite,
-          onPressed: provider.onTapBackButton,
+          onPressed: store.onTapBackButton,
         ),
       ),
-      body: Observer(
-        builder: (_) => provider.isLoading
-            ? const CircularProgressIndicator()
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      const Text("Name: ",
-                          style: TextStyle(
-                              fontSize: 20, color: CoreColors.infoTextColor3)),
-                      Text(provider.actualTask?.title ?? '',
-                          style: const TextStyle(
-                              fontSize: 20, color: CoreColors.coreWhite)),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Text("Description: ",
-                          style: TextStyle(
-                              fontSize: 20, color: CoreColors.infoTextColor3)),
-                      Text(provider.actualTask?.description ?? '',
-                          style: const TextStyle(
-                              fontSize: 20, color: CoreColors.coreWhite)),
-                    ],
-                  ),
-                ],
-              ),
+      body: LayoutBuilder(
+        builder: (context, constraints) => SingleChildScrollView(
+          child: SizedBox(
+            height: constraints.maxHeight,
+            child: Observer(
+              builder: (_) => store.isLoading
+                  ? const Center(
+                      child: SizedBox(
+                          height: 50,
+                          width: 50,
+                          child: CircularProgressIndicator()))
+                  : Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                MainInputTextFieldWidget(
+                                  label: 'Name',
+                                  hintText: "Task name",
+                                  controller: store.nameController,
+                                  onChanged: (_) => store.onChangeTask(),
+                                ),
+                                const SizedBox(height: 24),
+                                MainInputTextFieldWidget(
+                                  label: 'Description',
+                                  hintText: "Task description",
+                                  controller: store.descriptionController,
+                                  onChanged: (_) => store.onChangeTask(),
+                                ),
+                                const SizedBox(height: 64),
+                                Observer(
+                                  builder: (_) => IgnorePointer(
+                                    ignoring: !store.hasChanges,
+                                    child: MainButtonWidget(
+                                      onPressed: store.updateTask,
+                                      title: 'Update Task',
+                                      isLoading: store.isLoading,
+                                      type: store.hasChanges
+                                          ? ButtonTypes.primary
+                                          : ButtonTypes.secondary,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+            ),
+          ),
+        ),
       ),
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:tasko/core/theme/core_colors.dart';
 import 'package:tasko/core/theme/core_text_styles.dart';
-import 'package:tasko/pages/register/register_controller.dart';
+import 'package:tasko/pages/register/register_store.dart';
 import 'package:tasko/widgets/main_button_widget.dart';
 import 'package:tasko/widgets/main_input_textfield_widget.dart';
 
@@ -11,7 +11,7 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final RegisterController provider = RegisterController();
+    final RegisterStore store = RegisterStore();
 
     return Scaffold(
       backgroundColor: CoreColors.coreBackground,
@@ -48,7 +48,7 @@ class RegisterPage extends StatelessWidget {
                         const SizedBox(width: 8),
                         InkWell(
                           onTap: () {
-                            provider.goToLogin();
+                            store.goToLogin();
                           },
                           child: Text(
                             "Login now!",
@@ -68,7 +68,7 @@ class RegisterPage extends StatelessWidget {
                           hintText: "jane_doe@gmail.com",
                           label: "Email",
                           keyboardType: TextInputType.emailAddress,
-                          controller: provider.emailController,
+                          controller: store.emailController,
                           // onChanged: (_) => provider.validateEmail(),
                         ),
                         const SizedBox(height: 24),
@@ -76,8 +76,8 @@ class RegisterPage extends StatelessWidget {
                           keyboardType: TextInputType.visiblePassword,
                           hintText: "Your password",
                           label: "Password",
-                          isObscure: provider.passwordVisible,
-                          controller: provider.passwordController,
+                          isObscure: store.passwordVisible,
+                          controller: store.passwordController,
                           // onTapPasswordVisibleButton: () =>
                           //     provider.changeIsObscurePassword(
                           //         !provider.isObscurePassword),
@@ -90,9 +90,9 @@ class RegisterPage extends StatelessWidget {
                 ),
                 Observer(
                   builder: (_) => MainButtonWidget(
-                    onPressed: provider.login,
+                    onPressed: store.login,
                     title: "Register",
-                    isLoading: provider.isLoading,
+                    isLoading: store.isLoading,
                     // type: provider.isEmailValid && provider.isValidPassword
                     //     ? ButtonTypes.primary
                     //     : ButtonTypes.secondary,

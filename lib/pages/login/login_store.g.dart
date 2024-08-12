@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login_controller.dart';
+part of 'login_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,9 +8,9 @@ part of 'login_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$LoginController on _LoginController, Store {
+mixin _$LoginStore on _LoginStore, Store {
   late final _$isLoadingAtom =
-      Atom(name: '_LoginController.isLoading', context: context);
+      Atom(name: '_LoginStore.isLoading', context: context);
 
   @override
   bool get isLoading {
@@ -26,7 +26,7 @@ mixin _$LoginController on _LoginController, Store {
   }
 
   late final _$passwordVisibleAtom =
-      Atom(name: '_LoginController.passwordVisible', context: context);
+      Atom(name: '_LoginStore.passwordVisible', context: context);
 
   @override
   bool get passwordVisible {
@@ -41,7 +41,23 @@ mixin _$LoginController on _LoginController, Store {
     });
   }
 
-  late final _$userAtom = Atom(name: '_LoginController.user', context: context);
+  late final _$rememberMeAtom =
+      Atom(name: '_LoginStore.rememberMe', context: context);
+
+  @override
+  bool get rememberMe {
+    _$rememberMeAtom.reportRead();
+    return super.rememberMe;
+  }
+
+  @override
+  set rememberMe(bool value) {
+    _$rememberMeAtom.reportWrite(value, super.rememberMe, () {
+      super.rememberMe = value;
+    });
+  }
+
+  late final _$userAtom = Atom(name: '_LoginStore.user', context: context);
 
   @override
   User? get user {
@@ -57,35 +73,46 @@ mixin _$LoginController on _LoginController, Store {
   }
 
   late final _$loginAsyncAction =
-      AsyncAction('_LoginController.login', context: context);
+      AsyncAction('_LoginStore.login', context: context);
 
   @override
   Future<void> login() {
     return _$loginAsyncAction.run(() => super.login());
   }
 
-  late final _$_LoginControllerActionController =
-      ActionController(name: '_LoginController', context: context);
+  late final _$_LoginStoreActionController =
+      ActionController(name: '_LoginStore', context: context);
 
   @override
   void goToHome() {
-    final _$actionInfo = _$_LoginControllerActionController.startAction(
-        name: '_LoginController.goToHome');
+    final _$actionInfo =
+        _$_LoginStoreActionController.startAction(name: '_LoginStore.goToHome');
     try {
       return super.goToHome();
     } finally {
-      _$_LoginControllerActionController.endAction(_$actionInfo);
+      _$_LoginStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void togglePasswordVisibility() {
-    final _$actionInfo = _$_LoginControllerActionController.startAction(
-        name: '_LoginController.togglePasswordVisibility');
+    final _$actionInfo = _$_LoginStoreActionController.startAction(
+        name: '_LoginStore.togglePasswordVisibility');
     try {
       return super.togglePasswordVisibility();
     } finally {
-      _$_LoginControllerActionController.endAction(_$actionInfo);
+      _$_LoginStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void toggleRememberMe(bool value) {
+    final _$actionInfo = _$_LoginStoreActionController.startAction(
+        name: '_LoginStore.toggleRememberMe');
+    try {
+      return super.toggleRememberMe(value);
+    } finally {
+      _$_LoginStoreActionController.endAction(_$actionInfo);
     }
   }
 
@@ -94,6 +121,7 @@ mixin _$LoginController on _LoginController, Store {
     return '''
 isLoading: ${isLoading},
 passwordVisible: ${passwordVisible},
+rememberMe: ${rememberMe},
 user: ${user}
     ''';
   }

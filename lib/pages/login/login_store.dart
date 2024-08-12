@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:mobx/mobx.dart';
-part 'login_controller.g.dart';
+part 'login_store.g.dart';
 
-class LoginController = _LoginController with _$LoginController;
+class LoginStore = _LoginStore with _$LoginStore;
 
-abstract class _LoginController with Store {
+abstract class _LoginStore with Store {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   TextEditingController emailController = TextEditingController();
@@ -19,7 +20,20 @@ abstract class _LoginController with Store {
   bool passwordVisible = false;
 
   @observable
+  bool rememberMe = false;
+
+  @observable
   User? user;
+
+  _LoginStore() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final email = GetStorage().read('email');
+      if (email != null) {
+        emailController.text = email;
+        rememberMe = true;
+      }
+    });
+  }
 
   @action
   void goToHome() {
@@ -37,6 +51,11 @@ abstract class _LoginController with Store {
           .user;
 
       if (user.runtimeType == User) {
+        if (rememberMe) {
+          GetStorage().write('email', emailController.text.trim());
+        } else {
+          GetStorage().remove('email');
+        }
         Modular.to.navigate('/home');
       }
     } catch (e) {
@@ -49,5 +68,10 @@ abstract class _LoginController with Store {
   @action
   void togglePasswordVisibility() {
     passwordVisible = !passwordVisible;
+  }
+
+  @action
+  void toggleRememberMe(bool value) {
+    rememberMe = value;
   }
 }

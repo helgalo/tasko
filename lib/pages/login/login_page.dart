@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tasko/core/theme/core_colors.dart';
 import 'package:tasko/core/theme/core_text_styles.dart';
-import 'package:tasko/pages/login/login_controller.dart';
+import 'package:tasko/pages/login/login_store.dart';
 import 'package:tasko/widgets/main_button_widget.dart';
 import 'package:tasko/widgets/main_checkbox_button_widget.dart';
 import 'package:tasko/widgets/main_input_textfield_widget.dart';
@@ -15,7 +15,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final LoginController provider = LoginController();
+  final LoginStore provider = LoginStore();
 
   @override
   Widget build(BuildContext context) {
@@ -96,10 +96,11 @@ class _LoginPageState extends State<LoginPage> {
                             children: [
                               Row(
                                 children: [
-                                  MainCheckboxWidget(
-                                    checked: true,
-                                    // onTap: provider.changeRemember,
-                                    onTap: (_) {},
+                                  Observer(
+                                    builder: (context) => MainCheckboxWidget(
+                                      checked: provider.rememberMe,
+                                      onTap: provider.toggleRememberMe,
+                                    ),
                                   ),
                                   const SizedBox(width: 8),
                                   SizedBox(

@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:tasko/models/task.dart';
-part 'home_controller.g.dart';
+part 'home_store.g.dart';
 
-class HomeController = _HomeController with _$HomeController;
+class HomeStore = _HomeStore with _$HomeStore;
 
-abstract class _HomeController with Store {
+abstract class _HomeStore with Store {
   FirebaseFirestore fireStore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -20,7 +20,7 @@ abstract class _HomeController with Store {
 
   User? get user => _auth.currentUser!;
 
-  _HomeController() {
+  _HomeStore() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getTasks();
     });

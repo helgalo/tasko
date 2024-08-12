@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:tasko/models/task.dart';
-part 'create_task_controller.g.dart';
+part 'create_task_store.g.dart';
 
-class CreateTaskController = _CreateTaskController with _$CreateTaskController;
+class CreateTaskStore = _CreateTaskStore with _$CreateTaskStore;
 
-abstract class _CreateTaskController with Store {
+abstract class _CreateTaskStore with Store {
   @observable
   bool isLoading = false;
 

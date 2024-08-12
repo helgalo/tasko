@@ -2,11 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-part 'register_controller.g.dart';
+part 'register_store.g.dart';
 
-class RegisterController = _RegisterController with _$RegisterController;
+class RegisterStore = _RegisterStore with _$RegisterStore;
 
-abstract class _RegisterController with Store {
+abstract class _RegisterStore with Store {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   TextEditingController emailController = TextEditingController();
