@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:tasko/services/snack_bar_service.dart';
+import 'package:tasko/widgets/snack_bar_widget.dart';
 part 'register_store.g.dart';
 
 class RegisterStore = _RegisterStore with _$RegisterStore;
@@ -37,9 +39,19 @@ abstract class _RegisterStore with Store {
       ));
 
       if (userCredential.runtimeType == UserCredential) {
+        SnackBarService.getSnack(
+          snackTitle: "Register",
+          description: "User created successfully",
+          type: SnackBarTypes.valid,
+        );
         Modular.to.navigate('/');
       }
-    } catch (e) {
+    } on FirebaseException catch (e) {
+      SnackBarService.getSnack(
+        snackTitle: "Register Error",
+        description: e.code,
+      );
+
       debugPrint(e.toString());
     } finally {
       isLoading = false;

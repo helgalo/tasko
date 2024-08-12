@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:tasko/models/task.dart';
+import 'package:tasko/services/firebase_errors_service.dart';
+import 'package:tasko/services/snack_bar_service.dart';
 part 'home_store.g.dart';
 
 class HomeStore = _HomeStore with _$HomeStore;
@@ -29,19 +31,29 @@ abstract class _HomeStore with Store {
   @action
   Future<void> getTasks() async {
     isLoading = true;
-    if (user != null) {
-      CollectionReference tasksRef = FirebaseFirestore.instance
-          .collection('task')
-          .doc(user?.uid)
-          .collection("tasks");
+    try {
+      if (user != null) {
+        CollectionReference tasksRef = FirebaseFirestore.instance
+            .collection('task')
+            .doc(user?.uid)
+            .collection("tasks");
 
-      QuerySnapshot snapshot = await tasksRef.get();
-      tasks = snapshot.docs
-          .map((e) => Task.fromJson(e.id, e.data() as Map<String, dynamic>))
-          .toList()
-          .cast<Task>();
+        QuerySnapshot snapshot = await tasksRef.get();
+        tasks = snapshot.docs
+            .map((e) => Task.fromJson(e.id, e.data() as Map<String, dynamic>))
+            .toList()
+            .cast<Task>();
+      }
+    } on FirebaseException catch (e) {
+      SnackBarService.getSnack(
+        snackTitle: "Tasks Error",
+        description: e.code,
+      );
+
+      debugPrint("Error fetching tasks: $e");
+    } finally {
+      isLoading = false;
     }
-    isLoading = false;
   }
 
   @action

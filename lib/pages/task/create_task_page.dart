@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:tasko/core/theme/core_colors.dart';
 import 'package:tasko/core/theme/core_text_styles.dart';
-import 'package:tasko/pages/task/create/create_task_store.dart';
+import 'package:tasko/stores/task/create/create_task_store.dart';
 import 'package:tasko/widgets/main_button_widget.dart';
 import 'package:tasko/widgets/main_input_textfield_widget.dart';
 
@@ -31,8 +31,8 @@ class CreateTaskPage extends StatelessWidget {
         builder: (context, constraints) => SingleChildScrollView(
           child: Container(
             height: constraints.maxHeight,
-            padding: const EdgeInsets.all(24),
-            child: SafeArea(
+            padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
+            child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -56,6 +56,7 @@ class CreateTaskPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 24),
                           MainInputTextFieldWidget(
+                            maxLines: 5,
                             keyboardType: TextInputType.visiblePassword,
                             hintText: "Description of the task",
                             label: "Description",

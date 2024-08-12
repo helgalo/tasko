@@ -1,8 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mobx/mobx.dart';
+import 'package:tasko/services/firebase_errors_service.dart';
+import 'package:tasko/services/snack_bar_service.dart';
+
 part 'login_store.g.dart';
 
 class LoginStore = _LoginStore with _$LoginStore;
@@ -12,6 +17,12 @@ abstract class _LoginStore with Store {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  @observable
+  bool isEmailValid = false;
+
+  @observable
+  String? errorMessage = '';
 
   @observable
   bool isLoading = false;
@@ -41,6 +52,27 @@ abstract class _LoginStore with Store {
   }
 
   @action
+  validateFields(String email) {
+    if (email.isEmpty) {
+      errorMessage = 'Email is required';
+      return;
+    } else if (passwordController.text.isEmpty) {
+      errorMessage = 'Password is required';
+      return;
+    } else if (!isValidEmail(email)) {
+      errorMessage = 'Invalid email';
+      return;
+    }
+    errorMessage = null;
+    return null;
+  }
+
+  bool isValidEmail(String email) {
+    final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+    return emailRegex.hasMatch(email);
+  }
+
+  @action
   Future<void> login() async {
     isLoading = true;
     try {
@@ -58,11 +90,23 @@ abstract class _LoginStore with Store {
         }
         Modular.to.navigate('/home');
       }
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
+      SnackBarService.getSnack(
+        snackTitle: "Login Error",
+        description: FirebaseErrorsService.getMessageFromErrorCode(e.code),
+      );
+
+      errorMessage = 'Invalid email or password';
+
       debugPrint(e.toString());
     } finally {
       isLoading = false;
     }
+  }
+
+  @action
+  void changeIsEmailValid(bool value) {
+    isEmailValid = value;
   }
 
   @action

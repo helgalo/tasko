@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tasko/core/theme/core_colors.dart';
 import 'package:tasko/core/theme/core_text_styles.dart';
-import 'package:tasko/pages/login/login_store.dart';
+import 'package:tasko/stores/login/login_store.dart';
 import 'package:tasko/widgets/main_button_widget.dart';
 import 'package:tasko/widgets/main_checkbox_button_widget.dart';
 import 'package:tasko/widgets/main_input_textfield_widget.dart';
@@ -15,7 +15,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final LoginStore provider = LoginStore();
+  final LoginStore store = LoginStore();
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           const SizedBox(width: 8),
                           InkWell(
-                            onTap: provider.goToHome,
+                            onTap: store.goToHome,
                             child: Text(
                               "Sing up now!",
                               style: CoreTextStyles.publicSans(
@@ -71,12 +71,14 @@ class _LoginPageState extends State<LoginPage> {
                       //Body
                       Column(
                         children: [
-                          MainInputTextFieldWidget(
-                            hintText: "Your email",
-                            label: "Email",
-                            keyboardType: TextInputType.emailAddress,
-                            controller: provider.emailController,
-                            // onChanged: (_) => provider.validateEmail(),
+                          Observer(
+                            builder: (_) => MainInputTextFieldWidget(
+                              hintText: "Your email",
+                              label: "Email",
+                              keyboardType: TextInputType.emailAddress,
+                              controller: store.emailController,
+                              // onChanged: (_) => provider.validateEmail(),
+                            ),
                           ),
                           const SizedBox(height: 24),
                           Observer(
@@ -84,10 +86,10 @@ class _LoginPageState extends State<LoginPage> {
                               keyboardType: TextInputType.visiblePassword,
                               hintText: "Your password",
                               label: "Password",
-                              isObscure: provider.passwordVisible,
-                              controller: provider.passwordController,
-                              onTapPasswordVisibleButton: () =>
-                                  provider.togglePasswordVisibility(),
+                              isObscure: !store.passwordVisible,
+                              controller: store.passwordController,
+                              onTapPasswordVisibleButton:
+                                  store.togglePasswordVisibility,
                             ),
                           ),
                           const SizedBox(height: 16),
@@ -98,8 +100,8 @@ class _LoginPageState extends State<LoginPage> {
                                 children: [
                                   Observer(
                                     builder: (context) => MainCheckboxWidget(
-                                      checked: provider.rememberMe,
-                                      onTap: provider.toggleRememberMe,
+                                      checked: store.rememberMe,
+                                      onTap: store.toggleRememberMe,
                                     ),
                                   ),
                                   const SizedBox(width: 8),
@@ -124,9 +126,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   Observer(
                     builder: (_) => MainButtonWidget(
-                      onPressed: provider.login,
+                      onPressed: store.login,
                       title: "Login",
-                      isLoading: provider.isLoading,
+                      isLoading: store.isLoading,
                       // type: provider.isEmailValid && provider.isValidPassword
                       //     ? ButtonTypes.primary
                       //     : ButtonTypes.secondary,

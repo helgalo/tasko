@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:tasko/core/theme/core_colors.dart';
 import 'package:tasko/core/theme/core_text_styles.dart';
-import 'package:tasko/pages/register/register_store.dart';
+import 'package:tasko/stores/register/register_store.dart';
 import 'package:tasko/widgets/main_button_widget.dart';
 import 'package:tasko/widgets/main_input_textfield_widget.dart';
 

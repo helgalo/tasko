@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:tasko/models/task.dart';
+import 'package:tasko/services/snack_bar_service.dart';
+import 'package:tasko/widgets/snack_bar_widget.dart';
 part 'task_details_store.g.dart';
 
 class TaskDetailsStore = _TaskDetailsStore with _$TaskDetailsStore;
@@ -18,7 +20,7 @@ abstract class _TaskDetailsStore with Store {
   Task? actualTask;
 
   @observable
-  bool isLoading = false;
+  bool isLoading = true;
 
   @observable
   bool hasChanges = false;
@@ -28,6 +30,7 @@ abstract class _TaskDetailsStore with Store {
       actualTask = Modular.args.data as Task?;
       nameController.text = actualTask?.title ?? '';
       descriptionController.text = actualTask?.description ?? '';
+      isLoading = false;
     });
   }
 
@@ -44,23 +47,36 @@ abstract class _TaskDetailsStore with Store {
   @action
   Future<void> updateTask() async {
     isLoading = true;
+    try {
+      actualTask = Task(
+        id: actualTask?.id,
+        title: nameController.text,
+        description: descriptionController.text,
+      );
 
-    actualTask = Task(
-      id: actualTask?.id,
-      title: nameController.text,
-      description: descriptionController.text,
-    );
+      User? user = _auth.currentUser;
+      if (user != null) {
+        CollectionReference tasks = FirebaseFirestore.instance
+            .collection('task')
+            .doc(user.uid)
+            .collection("tasks");
 
-    User? user = _auth.currentUser;
-    if (user != null) {
-      CollectionReference tasks = FirebaseFirestore.instance
-          .collection('task')
-          .doc(user.uid)
-          .collection("tasks");
+        await tasks.doc(actualTask?.id).update(actualTask!.toJson());
 
-      await tasks.doc(actualTask?.id).update(actualTask!.toJson());
+        SnackBarService.getSnack(
+          snackTitle: "Update Task",
+          description: "Task updated successfully",
+          type: SnackBarTypes.valid,
+        );
+      }
+    } on FirebaseException catch (e) {
+      SnackBarService.getSnack(
+          snackTitle: "Update Task Error", description: e.code);
+
+      debugPrint("Error updating task: $e");
+    } finally {
+      isLoading = false;
     }
-    isLoading = false;
   }
 
   @action

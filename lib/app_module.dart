@@ -1,9 +1,9 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:tasko/pages/home/home_page.dart';
-import 'package:tasko/pages/login/login_page.dart';
-import 'package:tasko/pages/register/register_page.dart';
-import 'package:tasko/pages/task/create/create_task_page.dart';
-import 'package:tasko/pages/task/details/task_details_page.dart';
+import 'package:tasko/pages/home_page.dart';
+import 'package:tasko/pages/login_page.dart';
+import 'package:tasko/pages/register_page.dart';
+import 'package:tasko/pages/task/create_task_page.dart';
+import 'package:tasko/pages/task/task_details_page.dart';
 
 class AppModule extends Module {
   @override

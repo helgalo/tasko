@@ -139,13 +139,7 @@ class _MainInputTextFieldWidgetState extends State<MainInputTextFieldWidget> {
                         onChanged: widget.onChanged,
                         focusNode: widget.focusNode,
                         obscureText: widget.isObscure!,
-                        // inputFormatters: [
-                        //   if (widget.mask != null)
-                        //     TextInputMask(
-                        //         mask: widget.mask,
-                        //         maxLength: widget.lengthLimit),
-                        //   ...widget.inputFormatters,
-                        // ],
+                        inputFormatters: widget.inputFormatters,
                         textAlign: widget.textAlign,
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.symmetric(
@@ -177,13 +171,7 @@ class _MainInputTextFieldWidgetState extends State<MainInputTextFieldWidget> {
                           widget.onSubmitted;
                           FocusScope.of(context).unfocus();
                         },
-                        // inputFormatters: [
-                        //   if (widget.mask != null)
-                        //     TextInputMask(
-                        //         mask: widget.mask,
-                        //         maxLength: widget.lengthLimit),
-                        //   ...widget.inputFormatters,
-                        // ],
+                        inputFormatters: widget.inputFormatters,
                         textAlign: widget.textAlign,
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.symmetric(
