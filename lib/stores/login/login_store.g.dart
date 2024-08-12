@@ -127,11 +127,11 @@ mixin _$LoginStore on _LoginStore, Store {
   }
 
   @override
-  dynamic validateFields(String email) {
+  bool validateFields() {
     final _$actionInfo = _$_LoginStoreActionController.startAction(
         name: '_LoginStore.validateFields');
     try {
-      return super.validateFields(email);
+      return super.validateFields();
     } finally {
       _$_LoginStoreActionController.endAction(_$actionInfo);
     }

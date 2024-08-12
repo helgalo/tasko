@@ -22,7 +22,7 @@ abstract class _LoginStore with Store {
   bool isEmailValid = false;
 
   @observable
-  String? errorMessage = '';
+  String? errorMessage;
 
   @observable
   bool isLoading = false;
@@ -52,19 +52,19 @@ abstract class _LoginStore with Store {
   }
 
   @action
-  validateFields(String email) {
-    if (email.isEmpty) {
+  bool validateFields() {
+    if (emailController.text.isEmpty) {
       errorMessage = 'Email is required';
-      return;
+      return false;
     } else if (passwordController.text.isEmpty) {
       errorMessage = 'Password is required';
-      return;
-    } else if (!isValidEmail(email)) {
+      return false;
+    } else if (!isValidEmail(emailController.text)) {
       errorMessage = 'Invalid email';
-      return;
+      return false;
     }
     errorMessage = null;
-    return null;
+    return true;
   }
 
   bool isValidEmail(String email) {
@@ -76,6 +76,12 @@ abstract class _LoginStore with Store {
   Future<void> login() async {
     isLoading = true;
     try {
+      bool result = validateFields();
+      if (!result) {
+        isLoading = false;
+        return;
+      }
+
       user = (await _auth.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),

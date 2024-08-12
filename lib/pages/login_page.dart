@@ -73,16 +73,21 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           Observer(
                             builder: (_) => MainInputTextFieldWidget(
+                              styleType: store.errorMessage != null
+                                  ? TextFieldType.error
+                                  : TextFieldType.primary,
                               hintText: "Your email",
                               label: "Email",
                               keyboardType: TextInputType.emailAddress,
                               controller: store.emailController,
-                              // onChanged: (_) => provider.validateEmail(),
                             ),
                           ),
                           const SizedBox(height: 24),
                           Observer(
                             builder: (_) => MainInputTextFieldWidget(
+                              styleType: store.errorMessage != null
+                                  ? TextFieldType.error
+                                  : TextFieldType.primary,
                               keyboardType: TextInputType.visiblePassword,
                               hintText: "Your password",
                               label: "Password",
@@ -90,6 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                               controller: store.passwordController,
                               onTapPasswordVisibleButton:
                                   store.togglePasswordVisibility,
+                              infoMessage: store.errorMessage,
                             ),
                           ),
                           const SizedBox(height: 16),

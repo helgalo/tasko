@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:tasko/models/task.dart';
-import 'package:tasko/services/firebase_errors_service.dart';
 import 'package:tasko/services/snack_bar_service.dart';
 part 'home_store.g.dart';
 
