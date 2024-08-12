@@ -7,7 +7,11 @@ import 'package:tasko/pages/task/task_details_page.dart';
 
 class AppModule extends Module {
   @override
-  void binds(i) {}
+  void binds(i) {
+    // i.add(AuthSessionService.new);
+    // i.add<SessionService>(AuthSessionService.new);
+    // i.addSingleton(Session.new, key: 'userSession');
+  }
 
   @override
   void routes(r) {

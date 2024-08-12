@@ -64,23 +64,24 @@ class RegisterPage extends StatelessWidget {
                     const SizedBox(height: 22),
                     Column(
                       children: [
-                        MainInputTextFieldWidget(
-                          hintText: "jane_doe@gmail.com",
-                          label: "Email",
-                          keyboardType: TextInputType.emailAddress,
-                          controller: store.emailController,
-                          // onChanged: (_) => provider.validateEmail(),
+                        Observer(
+                          builder: (_) => MainInputTextFieldWidget(
+                            hintText: "jane_doe@gmail.com",
+                            label: "Email",
+                            keyboardType: TextInputType.emailAddress,
+                            controller: store.emailTextController,
+                            onChanged: (_) {},
+                          ),
                         ),
                         const SizedBox(height: 24),
-                        MainInputTextFieldWidget(
-                          keyboardType: TextInputType.visiblePassword,
-                          hintText: "Your password",
-                          label: "Password",
-                          isObscure: store.passwordVisible,
-                          controller: store.passwordController,
-                          // onTapPasswordVisibleButton: () =>
-                          //     provider.changeIsObscurePassword(
-                          //         !provider.isObscurePassword),
+                        Observer(
+                          builder: (_) => MainInputTextFieldWidget(
+                            keyboardType: TextInputType.visiblePassword,
+                            hintText: "Your password",
+                            label: "Password",
+                            isObscure: store.passwordVisible,
+                            controller: store.passwordTextController,
+                          ),
                         ),
                         const SizedBox(height: 16),
                       ],
@@ -90,7 +91,7 @@ class RegisterPage extends StatelessWidget {
                 ),
                 Observer(
                   builder: (_) => MainButtonWidget(
-                    onPressed: store.login,
+                    onPressed: store.register,
                     title: "Register",
                     isLoading: store.isLoading,
                     // type: provider.isEmailValid && provider.isValidPassword

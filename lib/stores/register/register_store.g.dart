@@ -9,6 +9,39 @@ part of 'register_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$RegisterStore on _RegisterStore, Store {
+  late final _$emailTextControllerAtom =
+      Atom(name: '_RegisterStore.emailTextController', context: context);
+
+  @override
+  TextEditingController get emailTextController {
+    _$emailTextControllerAtom.reportRead();
+    return super.emailTextController;
+  }
+
+  @override
+  set emailTextController(TextEditingController value) {
+    _$emailTextControllerAtom.reportWrite(value, super.emailTextController, () {
+      super.emailTextController = value;
+    });
+  }
+
+  late final _$passwordTextControllerAtom =
+      Atom(name: '_RegisterStore.passwordTextController', context: context);
+
+  @override
+  TextEditingController get passwordTextController {
+    _$passwordTextControllerAtom.reportRead();
+    return super.passwordTextController;
+  }
+
+  @override
+  set passwordTextController(TextEditingController value) {
+    _$passwordTextControllerAtom
+        .reportWrite(value, super.passwordTextController, () {
+      super.passwordTextController = value;
+    });
+  }
+
   late final _$isLoadingAtom =
       Atom(name: '_RegisterStore.isLoading', context: context);
 
@@ -56,12 +89,12 @@ mixin _$RegisterStore on _RegisterStore, Store {
     });
   }
 
-  late final _$loginAsyncAction =
-      AsyncAction('_RegisterStore.login', context: context);
+  late final _$registerAsyncAction =
+      AsyncAction('_RegisterStore.register', context: context);
 
   @override
-  Future<void> login() {
-    return _$loginAsyncAction.run(() => super.login());
+  Future<void> register() {
+    return _$registerAsyncAction.run(() => super.register());
   }
 
   late final _$_RegisterStoreActionController =
@@ -81,6 +114,8 @@ mixin _$RegisterStore on _RegisterStore, Store {
   @override
   String toString() {
     return '''
+emailTextController: ${emailTextController},
+passwordTextController: ${passwordTextController},
 isLoading: ${isLoading},
 passwordVisible: ${passwordVisible},
 user: ${user}

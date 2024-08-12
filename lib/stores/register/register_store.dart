@@ -11,8 +11,10 @@ class RegisterStore = _RegisterStore with _$RegisterStore;
 abstract class _RegisterStore with Store {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  @observable
+  TextEditingController emailTextController = TextEditingController();
+  @observable
+  TextEditingController passwordTextController = TextEditingController();
 
   @observable
   bool isLoading = false;
@@ -29,14 +31,14 @@ abstract class _RegisterStore with Store {
   }
 
   @action
-  Future<void> login() async {
+  Future<void> register() async {
     isLoading = true;
     UserCredential userCredential;
     try {
-      userCredential = (await _auth.createUserWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
-      ));
+      userCredential = await _auth.createUserWithEmailAndPassword(
+        email: emailTextController.text.trim(),
+        password: passwordTextController.text.trim(),
+      );
 
       if (userCredential.runtimeType == UserCredential) {
         SnackBarService.getSnack(
