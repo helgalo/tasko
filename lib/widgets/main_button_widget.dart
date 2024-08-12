@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tasko/core/theme/core_colors.dart';
 import 'package:tasko/core/theme/core_text_styles.dart';
 
-class BasicButtonWidget extends StatelessWidget {
+class MainButtonWidget extends StatelessWidget {
   final String title;
   final ButtonTypes type;
   final Function() onPressed;
@@ -12,7 +12,7 @@ class BasicButtonWidget extends StatelessWidget {
   final bool? isLoading;
   final Color? color;
 
-  const BasicButtonWidget({
+  const MainButtonWidget({
     super.key,
     required this.onPressed,
     required this.title,

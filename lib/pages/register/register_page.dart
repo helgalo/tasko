@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:tasko/core/theme/core_colors.dart';
 import 'package:tasko/core/theme/core_text_styles.dart';
 import 'package:tasko/pages/register/register_controller.dart';
-import 'package:tasko/widgets/basic_button_widget.dart';
-import 'package:tasko/widgets/basic_input_textfield_widget.dart';
+import 'package:tasko/widgets/main_button_widget.dart';
+import 'package:tasko/widgets/main_input_textfield_widget.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -61,30 +62,22 @@ class RegisterPage extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 22),
-                    //Body
                     Column(
                       children: [
-                        const BasicInputTextFieldWidget(
-                          hintText: "Jane Doe",
-                          label: "Name",
-                          // controller: provider.emailController,
-                          // onChanged: (_) => provider.validateName(),
-                        ),
-                        const SizedBox(height: 24),
-                        const BasicInputTextFieldWidget(
+                        MainInputTextFieldWidget(
                           hintText: "jane_doe@gmail.com",
                           label: "Email",
                           keyboardType: TextInputType.emailAddress,
-                          // controller: provider.emailController,
+                          controller: provider.emailController,
                           // onChanged: (_) => provider.validateEmail(),
                         ),
                         const SizedBox(height: 24),
-                        const BasicInputTextFieldWidget(
+                        MainInputTextFieldWidget(
                           keyboardType: TextInputType.visiblePassword,
                           hintText: "Your password",
                           label: "Password",
-                          // isObscure: provider.isObscurePassword,
-                          // controller: provider.passwordController,
+                          isObscure: provider.passwordVisible,
+                          controller: provider.passwordController,
                           // onTapPasswordVisibleButton: () =>
                           //     provider.changeIsObscurePassword(
                           //         !provider.isObscurePassword),
@@ -95,14 +88,15 @@ class RegisterPage extends StatelessWidget {
                     const SizedBox(height: 40),
                   ],
                 ),
-                BasicButtonWidget(
-                  // onPressed: provider.login,
-                  onPressed: () {},
-                  title: "Register",
-                  isLoading: false,
-                  // type: provider.isEmailValid && provider.isValidPassword
-                  //     ? ButtonTypes.primary
-                  //     : ButtonTypes.secondary,
+                Observer(
+                  builder: (_) => MainButtonWidget(
+                    onPressed: provider.login,
+                    title: "Register",
+                    isLoading: provider.isLoading,
+                    // type: provider.isEmailValid && provider.isValidPassword
+                    //     ? ButtonTypes.primary
+                    //     : ButtonTypes.secondary,
+                  ),
                 )
               ],
             ),

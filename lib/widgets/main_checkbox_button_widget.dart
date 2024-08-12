@@ -2,20 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tasko/core/theme/core_colors.dart';
 
-class BasicCheckboxWidget extends StatefulWidget {
+class MainCheckboxWidget extends StatefulWidget {
   final bool checked;
   final void Function(bool value) onTap;
-  const BasicCheckboxWidget({
+  const MainCheckboxWidget({
     super.key,
     required this.checked,
     required this.onTap,
   });
 
   @override
-  State<BasicCheckboxWidget> createState() => _BasicCheckboxWidgetState();
+  State<MainCheckboxWidget> createState() => _MainCheckboxWidgetState();
 }
 
-class _BasicCheckboxWidgetState extends State<BasicCheckboxWidget> {
+class _MainCheckboxWidgetState extends State<MainCheckboxWidget> {
   @override
   Widget build(BuildContext context) {
     bool isCheck = widget.checked;

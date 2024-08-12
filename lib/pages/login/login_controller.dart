@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:tasko/firebase_options.dart';
 part 'login_controller.g.dart';
 
 class LoginController = _LoginController with _$LoginController;
@@ -38,8 +36,9 @@ abstract class _LoginController with Store {
       ))
           .user;
 
-      isLoading = false;
-      Modular.to.navigate('/home');
+      if (user.runtimeType == User) {
+        Modular.to.navigate('/home');
+      }
     } catch (e) {
       debugPrint(e.toString());
     } finally {

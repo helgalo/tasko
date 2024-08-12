@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:tasko/core/theme/core_colors.dart';
 import 'package:tasko/core/theme/core_text_styles.dart';
 import 'package:tasko/pages/login/login_controller.dart';
-import 'package:tasko/widgets/basic_button_widget.dart';
-import 'package:tasko/widgets/basic_checkbox_button_widget.dart';
-import 'package:tasko/widgets/basic_input_textfield_widget.dart';
+import 'package:tasko/widgets/main_button_widget.dart';
+import 'package:tasko/widgets/main_checkbox_button_widget.dart';
+import 'package:tasko/widgets/main_input_textfield_widget.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class LoginPage extends StatefulWidget {
@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                       //Body
                       Column(
                         children: [
-                          BasicInputTextFieldWidget(
+                          MainInputTextFieldWidget(
                             hintText: "Your email",
                             label: "Email",
                             keyboardType: TextInputType.emailAddress,
@@ -80,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           const SizedBox(height: 24),
                           Observer(
-                            builder: (_) => BasicInputTextFieldWidget(
+                            builder: (_) => MainInputTextFieldWidget(
                               keyboardType: TextInputType.visiblePassword,
                               hintText: "Your password",
                               label: "Password",
@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                             children: [
                               Row(
                                 children: [
-                                  BasicCheckboxWidget(
+                                  MainCheckboxWidget(
                                     checked: true,
                                     // onTap: provider.changeRemember,
                                     onTap: (_) {},
@@ -122,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                   Observer(
-                    builder: (_) => BasicButtonWidget(
+                    builder: (_) => MainButtonWidget(
                       onPressed: provider.login,
                       title: "Login",
                       isLoading: provider.isLoading,

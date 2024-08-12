@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:tasko/core/theme/core_colors.dart';
 import 'package:tasko/core/theme/core_text_styles.dart';
 
-class BasicInputTextFieldWidget extends StatefulWidget {
+class MainInputTextFieldWidget extends StatefulWidget {
   final double? height;
   final double? width;
   final TextEditingController? controller;
@@ -31,7 +31,7 @@ class BasicInputTextFieldWidget extends StatefulWidget {
   final Function()? onTap;
   final int maxLines;
 
-  const BasicInputTextFieldWidget({
+  const MainInputTextFieldWidget({
     super.key,
     this.controller,
     this.height,
@@ -61,11 +61,11 @@ class BasicInputTextFieldWidget extends StatefulWidget {
   });
 
   @override
-  State<BasicInputTextFieldWidget> createState() =>
-      _BasicInputTextFieldWidgetState();
+  State<MainInputTextFieldWidget> createState() =>
+      _MainInputTextFieldWidgetState();
 }
 
-class _BasicInputTextFieldWidgetState extends State<BasicInputTextFieldWidget> {
+class _MainInputTextFieldWidgetState extends State<MainInputTextFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
